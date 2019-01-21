@@ -8,7 +8,6 @@ def menu_list(request):
     m1.save()
     m2.save()
     menu_list = [m1, m2]
-    print(m1)
     context = {
         'menu_list' : menu_list,
         'test' : 'This is test',
