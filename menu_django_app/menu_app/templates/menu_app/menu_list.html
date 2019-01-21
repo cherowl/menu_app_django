@@ -1,0 +1,12 @@
+{% extends 'menu_app/base.html' %}
+
+{%block menu%}
+    <ul>
+        {% for item in menu_list %}
+            {% if item %}
+                <li><a href=item.get_absolute_url>{{item}}</li>
+            {%endif%}
+        {%endfor%}
+    </ul>
+{%endblock%}
+
