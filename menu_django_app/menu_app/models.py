@@ -5,10 +5,8 @@ class Menu(models.Model):
     
     # points_contained = models.
 
-    @classmethod
-    def create(cls, title):
-        book = cls(title = title)
-        return book
+    def __init__(self, title):
+        self.title = title
 
     def __str__(self):
         return self.title
