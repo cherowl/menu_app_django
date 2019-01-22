@@ -1,18 +1,12 @@
 from django.contrib import admin
 from .models import Menu, MenuItem
 
-# class MenuItem(admin.TabularInline):
-#     model = MenuItem
+"""Should add one or several menus (this is list) to the chosen page """
+def add_menu_to_db(menus, page_url): 
+    pass 
 
-#     list_display = ['name', 'url']
-#     search_fields = ['name', 'url']
-    
 
-# class MenuAdmin(admin.ModelAdmin):
-#     list_display = ['name']
-#     search_fields = ['name']
+class MenuItemAdmin(admin.ModelAdmin):
+    model = MenuItem
 
-#     # prepopulated_fields = {'slug': ('name',)}
-#     inlines = [MenuItem]
-
-admin.site.register(Menu)
+admin.site.register(MenuItem, MenuItemAdmin)

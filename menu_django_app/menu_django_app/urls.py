@@ -19,7 +19,7 @@ from menu_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('menu_app/', views.menu_list),
+    path('menus/', views.menu_list),
     path('', views.home),
 ]
 

@@ -13,15 +13,14 @@ class Menu(models.Model):
         return self.name
 
 class MenuItem(models.Model):
-    menu = models.ForeignKey(Menu,
-                            on_delete = models.CASCADE)
+    menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
 
-    name = models.CharField(max_length = 150)
+    name = models.CharField(max_length=150)
     parent = models.ForeignKey('self', 
-                                on_delete = models.CASCADE,
-                                related_name = 'child', 
-                                blank = True, 
-                                null = True)
+                                on_delete=models.CASCADE,
+                                related_name='child', 
+                                blank=True, 
+                                null=True)
 
     url = models.SlugField()
     visible = models.BooleanField(default = False)
