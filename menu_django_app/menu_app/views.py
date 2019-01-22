@@ -1,22 +1,25 @@
 from django.shortcuts import render
-from .models import Menu
+from .models import Menu, MenuItem
 
 
 def menu_list(request):
-    m1 = Menu('menu_1')
-    m2 = Menu('menu_2')
+    m1 = Menu(name='Menu 1')
     m1.save()
-    m2.save()
-    menu_list = [m1, m2]
+
+    i1 = MenuItem(menu=m1, name='Menu 1.1', parent= None, url='url_i1', visible=True)
+    i2 = MenuItem(menu=m1, name='Menu 1.2', parent=i1, url='url_i2', visible=False)
+    i1.save()
+    i2.save()
+
     context = {
-        'menu_list' : menu_list,
-        'test' : 'This is test',
+        'root_menu': m1,
+        'childs': [i1, i2]
     }
     return render(request, 'menu_app/menu_list.html', context)
 
 
 def home(request):
     context = {
-        # 'title' : 'Home page'
+        # 'name' : 'Home page'
     }
     return render(request, 'menu_app/base.html', context)

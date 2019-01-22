@@ -2,11 +2,18 @@
 
 {%block menu%}
     <ul>
-        {% for item in menu_list %}
-            {% if item %}
-                <li><a href=item.get_absolute_url>{{item}}</li>
+        <li>><a href=item.url>{{root_menu}}</li>
+        {% for item in childs %}
+            {% if item and item.visible %}
+                <li><a href=item.url>{{item.name}}</li>
             {%endif%}
         {%endfor%}
     </ul>
 {%endblock%}
 
+{% comment %} 
+
+<ul>{% load menubuilder %}{% menu headernavigation %}
+    {% for item in menuitems %}<li><a href="{{ item.url }}" title="{{ item.title|escape }}"{% if item.current %} class='current'{% endif %}>{{ item.title }}</a></li>
+    {% endfor %}
+</ul>    {% endcomment %}

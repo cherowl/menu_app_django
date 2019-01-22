@@ -1,13 +1,39 @@
 from django.db import models
 
 class Menu(models.Model):
-    title = models.CharField(max_length = 100, help_text="Enter menu title", null = False)
-    
-    # points_contained = models.
+    name = models.CharField(max_length = 100,
+                            help_text="Enter menu name", 
+                            null = False)
 
-    def __init__(self, title):
+    def __init__(self, name):
         super(Menu, self).__init__()
-        self.title = title
+        self.name = name
 
     def __str__(self):
-        return self.title
+        return self.name
+
+class MenuItem(models.Model):
+    menu = models.ForeignKey(Menu,
+                            on_delete = models.CASCADE)
+
+    name = models.CharField(max_length = 150)
+    parent = models.ForeignKey('self', 
+                                on_delete = models.CASCADE,
+                                related_name = 'child', 
+                                blank = True, 
+                                null = True)
+
+    url = models.SlugField()
+    visible = models.BooleanField(default = False)
+
+    def __init__(self, menu, name, url, parent=None, visible=False):
+        super(MenuItem, self).__init__()
+        self.menu = menu
+        self.name = name
+        self.parent = parent
+        self.url = url
+        self.visible = visible
+
+    def __str__(self):
+        return {self.name}
+    
