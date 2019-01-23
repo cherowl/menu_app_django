@@ -5,10 +5,6 @@ class Menu(models.Model):
                             help_text="Enter menu name", 
                             null = False)
 
-    def __init__(self, name):
-        super(Menu, self).__init__()
-        self.name = name
-
     def __str__(self):
         return self.name
 
@@ -25,14 +21,6 @@ class MenuItem(models.Model):
     url = models.SlugField()
     visible = models.BooleanField(default = False)
 
-    def __init__(self, menu, name, url, parent=None, visible=False):
-        super(MenuItem, self).__init__()
-        self.menu = menu
-        self.name = name
-        self.parent = parent
-        self.url = url
-        self.visible = visible
-
     def __str__(self):
-        return {self.name}
+        return self.name
     

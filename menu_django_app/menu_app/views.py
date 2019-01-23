@@ -3,6 +3,14 @@ from .models import Menu, MenuItem
 
 
 def menu_list(request):
+    context = {
+        # 'root_menu': m1,
+        # 'childs': [i1, i2]
+    }
+    # context = init_menus()
+    return render(request, 'menu_app/menu_list.html', context)
+
+def init_menus():
     m1 = Menu(name='Menu 1')
     m1.save()
 
@@ -10,16 +18,14 @@ def menu_list(request):
     i2 = MenuItem(menu=m1, name='Menu 1.2', parent=i1, url='url_i2', visible=False)
     i1.save()
     i2.save()
-
-    context = {
+    cntx = {
         'root_menu': m1,
         'childs': [i1, i2]
     }
-    return render(request, 'menu_app/menu_list.html', context)
-
+    return cntx
 
 def home(request):
     context = {
-        # 'name' : 'Home page'
+        # 'title' : 'Home page'
     }
     return render(request, 'menu_app/base.html', context)
