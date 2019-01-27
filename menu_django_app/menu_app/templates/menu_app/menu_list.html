@@ -1,19 +1,24 @@
 {% extends 'menu_app/base.html' %}
 
-{%block menu%}
-    <ul>
-        <li>><a href=item.url>{{root_menu}}</li>
-        {% for item in childs %}
-            {% if item and item.visible %}
-                <li><a href=item.url>{{item.name}}</li>
+{% block menu %}
+    <ul> {% load menu_manage %} {% draw_menu main_menu %}
+        <li><a href="{{ main_menu_url }}"> {{main_menu}}</li>
+        <tr>{% include "menu_app/travel_tree.html" %}</tr>
+         
+       
+        
+{% comment %}         
+        
+        {% for item in items_tree.items() %}
+            {% if item is list %}
+                <li><a href="{{item.url}}" title="{{ item.name | escape }}"></li>
             {%endif%}
-        {%endfor%}
+        {%endfor%} {% endcomment %}
     </ul>
-{%endblock%}
+{% endblock %}
 
 {% comment %} 
-
 <ul>{% load menubuilder %}{% menu headernavigation %}
     {% for item in menuitems %}<li><a href="{{ item.url }}" title="{{ item.title|escape }}"{% if item.current %} class='current'{% endif %}>{{ item.title }}</a></li>
     {% endfor %}
-</ul>    {% endcomment %}
+</ul>     {% endcomment %}

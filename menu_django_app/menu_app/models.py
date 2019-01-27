@@ -1,4 +1,7 @@
+# -*- coding: utf-8 -*-
+import os
 from django.db import models
+from django.http import request
 
 class Menu(models.Model):
     name = models.CharField(max_length = 100,
@@ -18,7 +21,7 @@ class MenuItem(models.Model):
                                 blank=True, 
                                 null=True)
 
-    url = models.SlugField()
+    # url = models.SlugField()
     visible = models.BooleanField(default = False)
 
     def __str__(self):

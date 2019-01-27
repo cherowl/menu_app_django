@@ -1,0 +1,13 @@
+<li> 
+     <a href="{{ node.url }}"> {{node.name}}
+     {%if node.children %}
+         {%for ch in node.children %}
+              {%with node=ch template_name="menu_app/travel_tree.html" %}
+                   {%include template_name%}
+              {%endwith%}
+         {%endfor%}
+         </ul>
+    {%endif%}
+</li>
+
+

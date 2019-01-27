@@ -13,10 +13,11 @@ class MenuAdmin(admin.ModelAdmin):
     fieldsets = [
         ('MAIN MENU', {'fields': ['name']}),
     ]
+    search_fields = ['name']
     inlines = [MenuItemInline]
 
 
-admin.site.site_url = 'admin/menu_app/' 
+admin.site.site_url = '/menu_app' 
 admin.site.register(Menu, MenuAdmin)
 
 
