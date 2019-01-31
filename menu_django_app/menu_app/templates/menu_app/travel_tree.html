@@ -1,11 +1,12 @@
 <li> 
-     <a href="{{ node.url }}"> {{node.name}}
+     <a href="{{ node.url }}" > {{node.name}} </a>
      {%if node.children %}
-         {%for ch in node.children %}
-              {%with node=ch template_name="menu_app/travel_tree.html" %}
-                   {%include template_name%}
-              {%endwith%}
-         {%endfor%}
+         <ul>
+               {%for ch in node.children %}
+                    {%with node=ch template_name="menu_app/travel_tree.html" %}
+                         {%include template_name%}
+                    {%endwith%}
+               {%endfor%}
          </ul>
     {%endif%}
 </li>

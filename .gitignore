@@ -3,3 +3,4 @@ __pycache__
 task.jpg
 django_info
 env/
+.vscode
