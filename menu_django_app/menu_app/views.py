@@ -8,7 +8,7 @@ from django.http import HttpResponse
 def menu_list(request, menu_name=None):
     try:
         context = {
-            'title' : 'Menu App',
+            'title' : 'MENU APP',
         }
         if menu_name is not None:
             context['current_menu'] = menu_name

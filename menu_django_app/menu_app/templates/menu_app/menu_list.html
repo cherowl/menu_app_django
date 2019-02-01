@@ -2,8 +2,9 @@
 
 
 {% block menu %}
+    <h1>{{title}}</h1>
     <ul> {% load menu_manage %} 
-
+        
         {% draw_menu 'main_menu_1' %} 
 
         {% draw_menu 'main_menu_2' %} 

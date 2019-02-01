@@ -40,7 +40,6 @@ def draw_menu(context, menu_name):
             visible.append(menu_name)
             context['visible_items'] = visible
 
-        print('DEBUG', context['visible_items'], context['node'])
      
         return context
     
