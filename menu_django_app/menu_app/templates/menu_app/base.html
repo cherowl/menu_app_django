@@ -5,6 +5,24 @@
     <head>
         <meta charset="utf-8">
         <title>{{title}}</title>
+        <style> 
+            body {
+                background: url( "{% static 'wallpaper.jpg' %}" ) no-repeat;
+                background-size:cover;
+                max-width: auto;
+                height: 100%;
+                margin: 4%;
+                font-size: 21px;
+            }
+            li, ul, a {
+                text-decoration: initial;
+                color:  #d8eaf5;
+                margin: 2px;
+            }
+            a:hover{
+                text-decoration: underline;
+            }
+        </style>
     </head>
     <body>
         {%block menu%}{%endblock%}

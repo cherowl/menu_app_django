@@ -1,7 +1,7 @@
 {% comment %} {{test}} {% endcomment %}
 {% if node.name in visible_items %}
     <li> 
-        <a href="{{ node.url }}" id='item'> {{node.name}} </a> 
+        <a style="font-weight:bold" href="{{ node.url }}" id='item'> {{node.name}} </a> 
         {% if node.children %}
             <ul id='children'>
                 {% for ch in node.children %}

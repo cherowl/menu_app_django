@@ -1,19 +1,14 @@
 {% extends 'menu_app/base.html' %}
-{% comment %} {% load staticfiles %} {% endcomment %}
-{% comment %} {% static 'css/menu_list.css' %} {% endcomment %}
-{% load static from staticfiles %}
-
 
 
 {% block menu %}
     <ul> {% load menu_manage %} 
 
-        {% comment %} {% draw_current %} {% endcomment %}
-        {% comment %} {% include "menu_app/travel_tree.html" %}  {% endcomment %}
+        {% draw_current %}
 
         {% draw_menu 'main_menu_1' %} 
-        {% comment %} {% include "menu_app/travel_tree.html" %}  {% endcomment %}
 
+        {% draw_menu 'main_menu_2' %} 
        
 
     </ul>
