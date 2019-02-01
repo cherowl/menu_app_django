@@ -3,6 +3,8 @@
 {% comment %} {% static 'css/menu_list.css' %} {% endcomment %}
 {% load static from staticfiles %}
 
+
+
 {% block menu %}
     <ul> {% load menu_manage %} 
 
@@ -14,13 +16,6 @@
         {% include "menu_app/travel_tree.html" %}
 
 
-        {% comment %} {% if main_menu_built %}
-            {% draw_current current_menu %}
-        {% endif %} {% endcomment %}
-        
-
-        {% comment %} <li><a href="{{ main_menu_url }}"{% if request.path == '{{main_menu_url}}' %} class="current"{% endif %}>{{request.path}} {{main_menu_url}}</a></li> {% endcomment %}
-        
         
         {% comment %} {% get_children root current_menu %}
         <tr>{% include "menu_app/draw_children.html" %}</tr>

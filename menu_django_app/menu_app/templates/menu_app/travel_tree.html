@@ -1,14 +1,29 @@
-<li> 
-     <a href="{{ node.url }}" > {{node.name}} </a>
-     {%if node.children %}
-         <ul>
-               {%for ch in node.children %}
-                    {%with node=ch template_name="menu_app/travel_tree.html" %}
-                         {%include template_name%}
-                    {%endwith%}
-               {%endfor%}
-         </ul>
-    {%endif%}
-</li>
+
+{% block javascript %}
+    <script>
+        $(document).ready(function() {
+            $("#item").on("click", function(){
+                var children = $("#children").data("kendoTreeView");
+              children.expand(".item");
+            })
+
+        });
+    </script>
+{% endblock %}
+
+{% if node.name in path_list %}
+    <li> 
+          <a href="{{ node.url }}" id='item'> {{node.name}} </a> 
+         {% if node.children %}
+             <ul id='children'>
+                   {% for ch in node.children %}
+                        {% with node=ch template_name="menu_app/travel_tree.html" %}
+                             {% include template_name%}
+                        {% endwith %}
+                   {% endfor %}
+             </ul>
+        {% endif %}
+    </li>
+{% endif %}
 
 

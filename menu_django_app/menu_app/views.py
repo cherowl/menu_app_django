@@ -37,19 +37,19 @@ def menu_list(request, menu_name=None):
         if pattern.match(current_url): # to draw all main menu
             context = {
                 'title' : 'Menu App',
-                'menu_name' : menu_name, 
                 'current_menu' : menu_name,
 
             }
         else:
             context = {
                 'title' : 'Menu App',
-                'menu_name' : menu_name, 
                 'current_menu' : current_menu,
 
             }
         context['another_menu_name']= 'main_menu_1'
-        
+        context['menu_name'] = 'main_menu_3'
+        context['path_list'] = url_parsed
+
         return render(request, 'menu_app/menu_list.html', context)
 
     except Exception as e:
