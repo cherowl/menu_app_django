@@ -7,61 +7,41 @@ from django.shortcuts import render
 register = template.Library()
 
 
+def get_path_list(context):
+    request = context['request']
+    current_url = request.path_info
+    url_parsed = (current_url).split('/')
+    url_parsed = list(filter(lambda x: x != "", url_parsed))
+    current_item = url_parsed[-1]
+    path_list =  url_parsed[1:]
+
+    print('cur_url =', current_url)
+    print('cur_menu =', current_item)
+    return path_list
+ 
+
 @register.inclusion_tag('menu_app/travel_tree.html', takes_context=True)
 # @register.simple_tag(takes_context=True)
 def draw_menu(context, menu_name):
     try: 
-        request = context['request']
         root = ""
-        # del context['visible_items'][:] 
-        context['node'] = ""
-        if menu_name not in request.session['menu']:
-            request.session['menu'][menu_name] = {}
-            chosen_menu_items = hit_database(menu_name)
-            root = build_tree(chosen_menu_items, menu_name)
-            request.session['menu'][menu_name]['was_built'] = True
-            request.session['menu'][menu_name]['tree_root'] = root
-            context['node'] = root
+        chosen_menu_items = hit_database(menu_name)
+        root = build_tree(chosen_menu_items, menu_name)
+        context['node'] = root
+       
+        cond1 = context['current_menu'] is not None
+        cond2 = context['current_menu'] == menu_name
+        if cond1 and cond2 : # drawing menu is current 
+            context['visible_items'] = build_visible_items(root, get_path_list(context))
 
-        elif request.session['menu'][menu_name]['was_built']:
-            context['node'] = request.session['menu'][menu_name]['tree_root']
-            root = context['node']
-        tmp = []
-        visible = get_children_names(root, menu_name, tmp)
-        visible.append(menu_name)
-        context['visible_items'] = visible
+        else: # just draw a menu on the page (drawing menu is not current)
+            tmp = []
+            visible = get_children_names(root, menu_name, tmp)
+            visible.append(menu_name)
+            context['visible_items'] = visible
+
         print('DEBUG', context['visible_items'], context['node'])
-        context['test'] = 'test'
      
-        return context
-    
-    except ObjectDoesNotExist as e:
-        print(e)
-        print(f'Menu named \'{menu_name}\' doesn\'t exist or hasn\'t items.')
-        return ''
-
-@register.inclusion_tag('menu_app/travel_tree.html', takes_context=True)
-# @register.simple_tag(takes_context=True)
-def draw_current(context):
-    try: 
-        request = context['request']
-        menu_name = context['menu_name']
-        root = ""
-        if request.session['menu'][menu_name]['was_built']:
-            context['node'] = request.session['menu'][menu_name]['tree_root']
-            root = context['node']
-
-        else:
-            chosen_menu_items = hit_database(menu_name)
-            root = build_tree(chosen_menu_items, menu_name)
-            request.session['menu'][menu_name]['was_built'] = True
-            request.session['menu'][menu_name]['tree_root'] = root
-            context['node'] = root
-
-        context['visible_items'] = build_visible_items(root, context['path_list'])
-       
-       
-        context['test'] = 'cur'
         return context
     
     except ObjectDoesNotExist as e:
@@ -97,11 +77,11 @@ def hit_database(menu_name):
     
     # Doesn't hit the database, because items.menu has been prepopulated inthe previous query.
     chosen_menu_items = [item for item in items_with_additional_data if item.menu.name == menu_name]
-    # print(chosen_menu_items)
     if not chosen_menu_items:
         raise Exception(f'Menu named \'{menu_name}\' doesn\'t exist or hasn\'t items.')
     else:
         return chosen_menu_items
+
 
 def build_tree(chosen_menu_items, menu_name):
     ''' Building menu items tree using TreeItem class: '''
@@ -133,7 +113,6 @@ def build_urls(node, travel_path, lev):
 def build_visible_items(root, path_list):
     visible_items = []
     visible_items.extend(path_list)
-    print('PATH',path_list)
     for item in path_list:
         tmp = []
         get_children_names(root, item, tmp)
