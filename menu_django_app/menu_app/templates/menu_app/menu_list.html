@@ -8,13 +8,12 @@
 {% block menu %}
     <ul> {% load menu_manage %} 
 
-        {% draw_current %}
+        {% comment %} {% draw_current %} {% endcomment %}
         {% comment %} {% include "menu_app/travel_tree.html" %}  {% endcomment %}
-{% comment %} 
-        {% draw_menu 'main_menu_1' %}
-        {% include "menu_app/travel_tree.html" %} 
 
-         {% endcomment %}
+        {% draw_menu 'main_menu_1' %} 
+        {% comment %} {% include "menu_app/travel_tree.html" %}  {% endcomment %}
+
        
 
     </ul>

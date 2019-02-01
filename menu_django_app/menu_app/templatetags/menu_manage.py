@@ -7,8 +7,8 @@ from django.shortcuts import render
 register = template.Library()
 
 
-# @register.inclusion_tag('/menu_app/travel_tree.html', takes_context=True)
-@register.simple_tag(takes_context=True)
+@register.inclusion_tag('menu_app/travel_tree.html', takes_context=True)
+# @register.simple_tag(takes_context=True)
 def draw_menu(context, menu_name):
     try: 
         request = context['request']
@@ -27,11 +27,13 @@ def draw_menu(context, menu_name):
             context['node'] = request.session['menu'][menu_name]['tree_root']
             root = context['node']
         tmp = []
-        context['visible_items'] = get_children_names(root, menu_name, tmp)
+        visible = get_children_names(root, menu_name, tmp)
+        visible.append(menu_name)
+        context['visible_items'] = visible
         print('DEBUG', context['visible_items'], context['node'])
         context['test'] = 'test'
-        print('FFF')
-        return ''
+     
+        return context
     
     except ObjectDoesNotExist as e:
         print(e)
