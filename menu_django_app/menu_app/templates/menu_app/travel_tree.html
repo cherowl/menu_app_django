@@ -1,23 +1,17 @@
+{% comment %} {{title}}
+{% for key, val in test.items %}
+    {% with visible_items=val  %}
+        {{val}}
+    {% endif %}
+{% endfor %} {% endcomment %}
 
-{% block javascript %}
-    <script>
-        $(document).ready(function() {
-            $("#item").on("click", function(){
-                var children = $("#children").data("kendoTreeView");
-              children.expand(".item");
-            })
-
-        });
-    </script>
-{% endblock %}
-
-{% if node.name in path_list %}
+{% if current_node.name in visible_items %}
     <li> 
-          <a href="{{ node.url }}" id='item'> {{node.name}} </a> 
-         {% if node.children %}
+          <a href="{{ current_node.url }}" id='item'> {{current_node.name}} </a> 
+         {% if current_node.children %}
              <ul id='children'>
-                   {% for ch in node.children %}
-                        {% with node=ch template_name="menu_app/travel_tree.html" %}
+                   {% for ch in current_node.children %}
+                        {% with current_node=ch template_name="menu_app/travel_tree.html" %}
                              {% include template_name%}
                         {% endwith %}
                    {% endfor %}
@@ -25,5 +19,3 @@
         {% endif %}
     </li>
 {% endif %}
-
-

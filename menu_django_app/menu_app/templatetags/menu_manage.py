@@ -11,7 +11,6 @@ register = template.Library()
 def draw_menu(context, menu_name):
     try: 
         chosen_menu_items = hit_database(menu_name)
-
         ''' Building menu items tree using TreeItem class: '''
         items_tree = []
         for item in chosen_menu_items:
@@ -28,19 +27,23 @@ def draw_menu(context, menu_name):
         
         build_urls(root, '/menu_app/', 0)
         
-        context['node'] = root
-        context['root'] = root
+        context[menu_name]['node'] = root
         
         children_of_current = []
         global tmp 
-        for i in context['path_list']:
+        for i in context[menu_name]['path_list']:
             tmp = []
             get_children_names(root, i)
             children_of_current.extend(tmp)
         if children_of_current:
-            context['path_list'].extend(children_of_current)
-        
-        print(context['path_list'])
+            context[menu_name]['path_list'].extend(children_of_current)
+
+
+        # make simple access to the dict info in a template
+        context['current_node'] = context[menu_name]['node']
+        context['visible_items'] = context[menu_name]['path_list']
+        print('DEBUG',  context['visible_items'])
+
         return ''
     
     except ObjectDoesNotExist as e:
@@ -102,7 +105,7 @@ def get_children_names(root, name_to_find):
     if name_to_find == root.name:
         if root.children:
             tmp.extend([i.name for i in root.children])
-            print('children = ', tmp)
+            # print('children = ', tmp)
             return tmp
         else:
             return None

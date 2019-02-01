@@ -22,34 +22,24 @@ def menu_list(request, menu_name=None):
  
     Name structure of menues are optional. 
     '''
-    current_url = request.path_info
-    url_parsed = (current_url).split('/')
-    url_parsed = list(filter(lambda x: x != "", url_parsed))
-    current_menu = url_parsed[-1]
-
-    print('cur_url = ', current_url)
-    print('cur_menu_list = ', url_parsed)
-    print('cur_menu = ', current_menu)
-
     try:
-        pattern = re.compile('^/menu_app/' + menu_name + '/$')
+        current_url = request.path_info
+        url_parsed = (current_url).split('/')
+        url_parsed = list(filter(lambda x: x != "", url_parsed))
+        current_menu = url_parsed[-1]
 
-        if pattern.match(current_url): # to draw all main menu
-            context = {
-                'title' : 'Menu App',
-                'current_menu' : menu_name,
+        print('cur_url =', current_url)
+        print('cur_menu_list =', url_parsed)
+        print('cur_menu =', current_menu)
 
-            }
-        else:
-            context = {
-                'title' : 'Menu App',
-                'current_menu' : current_menu,
+        context = {
+            'title' : 'Menu App',
+            menu_name : {'current_menu' : "",
+                             'path_list' : None,
+                            },
+        }  
 
-            }
-        context['another_menu_name']= 'main_menu_1'
-        context['menu_name'] = 'main_menu_3'
-        context['path_list'] = url_parsed
-
+    
         return render(request, 'menu_app/menu_list.html', context)
 
     except Exception as e:
