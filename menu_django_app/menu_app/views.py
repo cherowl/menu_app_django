@@ -23,6 +23,8 @@ def menu_list(request, menu_name=None):
     Name structure of menues are optional. 
     '''
     try:
+        # for key in request.session.keys():
+        #     del request.session[key]
         current_url = request.path_info
         url_parsed = (current_url).split('/')
         url_parsed = list(filter(lambda x: x != "", url_parsed))
@@ -34,17 +36,24 @@ def menu_list(request, menu_name=None):
 
         context = {
             'title' : 'Menu App',
-            menu_name : {'current_menu' : "",
-                             'path_list' : None,
-                            },
+            'menu_name' : menu_name,
+            'current_menu' : current_menu,
+            'path_list' : url_parsed[1:],
         }  
+        if menu_name not in request.session['menu']:
+            request.session['menu'][menu_name] = {}
+            request.session['menu'][menu_name]['was_built'] = False
 
-    
+        # print('DEBUG')
+
+        # request.session['current_menu'] = current_menu
+
+        
         return render(request, 'menu_app/menu_list.html', context)
 
     except Exception as e:
         print(e)
-        return HttpResponse('Internal error in templates')
+        return HttpResponse('Internal error')
 
 
 def home(request):

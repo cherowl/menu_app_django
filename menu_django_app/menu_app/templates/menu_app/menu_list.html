@@ -7,15 +7,14 @@
 
 {% block menu %}
     <ul> {% load menu_manage %} 
-        
-        {% draw_menu 'main_menu_3' %}
-        {% include "menu_app/travel_tree.html" %}
 
+        {% draw_current %}
+        {% comment %} {% include "menu_app/travel_tree.html" %}  {% endcomment %}
 {% comment %} 
         {% draw_menu 'main_menu_1' %}
-        {% include "menu_app/travel_tree.html" %} {% endcomment %}
-      
-        
+        {% include "menu_app/travel_tree.html" %} 
+
+         {% endcomment %}
        
 
     </ul>
