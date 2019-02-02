@@ -45,7 +45,7 @@ def draw_menu(context, menu_name):
     
     except ObjectDoesNotExist as e:
         print(e)
-        print(f'Menu named \'{menu_name}\' doesn\'t exist or hasn\'t items.')
+        print(f'Menu named \'{menu_name}\' doesn\'t exist!')
         return ''
 
 

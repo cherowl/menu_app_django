@@ -21,7 +21,6 @@ class MenuItem(models.Model):
                                 blank=True, 
                                 null=True)
 
-    # url = models.SlugField()
     visible = models.BooleanField(default = False)
 
     def __str__(self):
