@@ -4,8 +4,6 @@ Menu App is a RESTful Python3.6+ django-app for implementing a tree menu.
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install Menu App.
-
 ```bash
 virtualenv --python=python3.6 venv
 pip install -r requirements.txt
