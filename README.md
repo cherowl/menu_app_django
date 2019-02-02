@@ -44,3 +44,7 @@ sudo pg_restore -U username -d dbname dbmenu.pgsql
 ```bash
 ./manage.py migrate
 ```
+- don't forget to create a superuser
+```bash
+./manage.py createsuperuser
+```
