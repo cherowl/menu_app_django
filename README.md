@@ -1,23 +1,47 @@
-This API is resful and solve the following requirements:
-'''Нужно сделать django app, который будет реализовывать древовидное меню, соблюдая
-следующие условия:
+# Menu App
 
-1) Меню реализовано через template tag
-2) Все, что над выделенным пунктом - развернуто. Первый уровень вложенности под
-выделенным пунктом тоже развернут.
-3) Хранится в БД.
-4) Редактируется в стандартной админке Django
-5) Активный пункт меню определяется исходя из URL текущей страницы
-6 )Меню на одной странице может быть несколько. Они определяются по названию.
-7) При клике на меню происходит переход по заданному в нем URL. URL может быть
-задан как явным образом, так и через named url.
-8)На отрисовку каждого меню требуется ровно 1 запрос к БД
-Нужен django-app, который позволяет вносить в БД меню (одно или несколько) через
-админку, и нарисовать на любой нужной странице меню по названию.
+Menu App is a RESTful Python3.6+ django-app for implementing a tree menu.
+
+## Installation
+
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install Menu App.
+
+```bash
+virtualenv --python=python3.6 venv
+pip install -r requirements.txt
+pip install psycopg2
+
+```
+
+## Usage
+
+To add/edit/delete a menu or an item of existed one you should go to the admin/ page and log in
+
+To draw menu (NB: it should already exist in the DB) type the following in the file 'menu_app/template/menu_list.html' inside {% block menu %}: 
+```python
 {% draw_menu 'main_menu' %}
-При выполнении задания из библиотек следует использовать только Django и
-стандартную библиотеку Python.'''
+```
 
+## Contributing
 
+Any feedback is welcome. 
+
+## Notes
 
 The main logic is in the file 'menu_app/templatetags/menu_manage.py'
+
+In the project folder there is a dump of postgresql DB named 'dbmenu.pgsql'.
+To restore it:
+- create new db (also change menu_django_app/settings.py according to your data):
+```bash
+sudo -i -u postgres
+psql
+create database dbname owner user_name;
+```
+- restore:
+```bash
+sudo pg_restore -U username -d dbname dbmenu.pgsql
+```
+- make migrate:
+./manage.py migrate
+
