@@ -26,9 +26,9 @@ Any feedback is welcome.
 
 ## Notes
 
-The main logic is in the file 'menu_app/templatetags/menu_manage.py'
+The main logic locates in the file 'menu_django_app/menu_app/templatetags/menu_manage.py'
 
-In the project folder there is a dump of postgresql DB named 'dbmenu.pgsql'.
+In the project folder there is a dump of postgreSQL named 'dbmenu.pgsql'.
 To restore it:
 - create new db (also change menu_django_app/settings.py according to your data):
 ```bash
@@ -41,5 +41,6 @@ create database dbname owner user_name;
 sudo pg_restore -U username -d dbname dbmenu.pgsql
 ```
 - make migrate:
+```bash
 ./manage.py migrate
-
+```
